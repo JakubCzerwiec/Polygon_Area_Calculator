@@ -25,8 +25,8 @@ class Rectangle() :
     def get_picture(self) :
         picture = ''
         i = 0
-        if self.height > 50 or self.width > 50 :
-            print('Too big for picture.')
+        if self.height >= 50 or self.width >= 50 :
+            return 'Too big for picture.'
             quit()
 
         while i < self.height :
@@ -34,23 +34,53 @@ class Rectangle() :
             i += 1
         return picture
 
-    def get_amount_inside(self, shape_width, shape_height) :
-        if self.width < shape_width or self.height < shape_height :
-            return 0
-        else :
-            number_of_items = int(math.floor(self.width / shape_width)) * int(math.floor(self.height / shape_height))
-            return number_of_items
+    def get_amount_inside(self, ob) :
+        return self.get_area() // ob.get_area()
+
 
     def __str__(self) :
         rect_string = f'Rectangle(width={self.width}, height={self.height})'
         return rect_string
 
+class Square(Rectangle) :
+    def __init__(self, side) :
 
-rec = Rectangle(2, 3)
-rec.set_height(7)
-rec.set_width(10)
-print(rec.get_area())
+        self.width = side
+        self.height = side
 
-print(rec.get_picture())
-print(rec.get_amount_inside(3,2))
-print(rec)
+    def set_side(self, new_side) :
+        self.width = new_side
+        self.height = new_side
+
+
+    def set_width(self, new_width) :
+        self.width = new_width
+        self.height = new_width
+    
+    def set_height(self, new_height) :
+        self.height = new_height
+        self.width = new_height
+
+    def __str__(self) :
+        scr_string = f'Square(side={self.width})'
+        return scr_string
+    
+
+
+rect = Rectangle(10, 5)
+print(rect.get_area())
+rect.set_height(3)
+print(rect.get_perimeter())
+print(rect)
+print(rect.get_picture())
+
+sq = Square(9)
+print(sq.get_area())
+sq.set_side(4)
+print(sq.get_diagonal())
+print(sq)
+print(sq.get_picture())
+
+rect.set_height(8)
+rect.set_width(16)
+print(rect.get_amount_inside(sq))
